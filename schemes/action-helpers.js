@@ -18,6 +18,18 @@ findProjectByIdToGetAll = (id) => {
         })
 }
 
+totalMethod = (id) => {
+    return findProjectByIdToGetAll(id)
+        .then(response => {
+            const project = response
+                return findActionByIdForProject(id)
+                    .then(response => {
+                         project.Actions = response
+                            return project
+                })
+        })
+}
+
 addNewProject = (newProject) => {
     return db('Projects')
         .insert(newProject)
@@ -29,7 +41,13 @@ addNewProject = (newProject) => {
         })
 }
 
-addNewAction = (newAction, id) => {
+addNewAction = (stuff, id) => {
+    newAction = {
+        Description: stuff.Description,
+        Notes: stuff.Notes,
+        Completed: stuff.Completed,
+        Project_ID: id
+    }
     return db('Actions')
         .insert(newAction)
         .where({ 'Project_ID': id })
@@ -42,7 +60,5 @@ module.exports = {
     addNewProject,
     findProjectById,
     addNewAction,
-    findActionById,
-    findProjectByIdToGetAll,
-    findActionByIdForProject
+    totalMethod
 }

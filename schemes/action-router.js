@@ -15,13 +15,7 @@ router.post('/projects', (req, res) => {
 })
 
 router.post('/projects/:id/actions', (req, res) => {
-    newAction = {
-        Description: req.body.Description,
-        Notes: req.body.Notes,
-        Completed: req.body.Completed,
-        Project_ID: req.params.id
-    }
-    addNewAction(newAction)
+    addNewAction(req.body, req.params.id)
         .then(response => {
             res.status(201).json(response[0])
             })
@@ -31,15 +25,9 @@ router.post('/projects/:id/actions', (req, res) => {
     })
 
 router.get('/projects/:id', (req, res) => {
-    findProjectByIdToGetAll(req.params.id)
+    totalMethod(req.params.id)
         .then(response => {
-        const project = response
-        findActionByIdForProject(req.params.id)
-            .then(response => {
-                    project.Actions = response
-                  res.status(200).json(project)
-                })
-            // console.log(actions)
+            res.status(200).json(response)
         })
         .catch(error => {
             res.status(500).json({ Error: 'Internal Server Error' })
