@@ -60,11 +60,22 @@ addNewAction = (stuff, id) => {
         })
 }
 
+updateProject = (update, id) => {
+    console.log(update, id)
+    return db('Projects')
+        .where('Projects.id', '=', id)
+        .update(update)
+        .then(response => {
+            return totalMethod(id)
+    })
+}
+
 module.exports = {
     addNewProject,
     findProjectById,
     addNewAction,
     totalMethod,
     getAllProjects,
-    findActionById
+    findActionById,
+    updateProject
 }

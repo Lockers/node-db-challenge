@@ -44,5 +44,17 @@ router.get('/projects', (req, res) => {
     })
 })
 
+router.put('/projects/:id', (req, res) => {
+    updateProject(req.body, req.params.id)
+        .then(response => {
+            console.log(response)
+            res.status(201).json(response)
+        })
+        .catch(error => {
+            console.log('Bad PAth')
+            res.status(500).json({ Error: 'Internal Server Error' })
+        })
+})
+
 
 module.exports = router;
