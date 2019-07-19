@@ -34,4 +34,15 @@ router.get('/projects/:id', (req, res) => {
         })
 })
 
+router.get('/projects', (req, res) => {
+    getAllProjects()
+        .then(response => {
+        res.status(200).json(response)
+        })
+        .catch(error => {
+        res.status(500).json({Error: 'Internal Server Error'})
+    })
+})
+
+
 module.exports = router;

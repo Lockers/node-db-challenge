@@ -11,6 +11,10 @@ findActionByIdForProject = (id) => {
     return db('Actions').where({ 'Project_ID': id })
 }
 
+getAllProjects = () => {
+    return db('Projects')
+}
+
 findProjectByIdToGetAll = (id) => {
     return db('Projects').where({ 'Projects.id': id })
         .then(response => {
@@ -60,5 +64,7 @@ module.exports = {
     addNewProject,
     findProjectById,
     addNewAction,
-    totalMethod
+    totalMethod,
+    getAllProjects,
+    findActionById
 }
